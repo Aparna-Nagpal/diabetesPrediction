@@ -8,66 +8,70 @@ import time
 try:
     df = pd.read_csv(r"./data.csv")
 except FileNotFoundError:
-    st.error("Unable to locate the dataset. Ensure the file `diabetes.csv` is in the correct location.")
+    st.error("Unable to locate the dataset. Ensure the file `data.csv` is in the correct location.")
     st.stop()
 
-# Custom CSS Styling
+# Updated CSS Styling
 st.markdown("""
 <style>
 body {
-    background: linear-gradient(to bottom, #f0f4c3, #c8e6c9); /* Soft green gradient background */
-    font-family: 'Roboto', sans-serif; /* Modern font family */
+    background: linear-gradient(120deg, #f6d365 0%, #fda085 100%); /* Gradient from peach to light orange */
+    font-family: 'Helvetica Neue', sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
     background: #ffffff;
     border-radius: 15px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-    padding: 25px;
-    margin: 20px 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
 }
 
 .action-button {
-    background: #388e3c; /* Vibrant green */
-    color: white;
-    padding: 12px 25px;
-    border: none;
-    border-radius: 25px;
-    cursor: pointer;
+    background-color: #ff5722; /* Vibrant orange button */
+    color: #ffffff;
     font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
     transition: all 0.3s ease;
+    cursor: pointer;
 }
 
 .action-button:hover {
-    background: #2e7d32; /* Darker green on hover */
+    background-color: #e64a19; /* Darker orange on hover */
     transform: scale(1.05);
 }
 
 h1, h2, h3, h4 {
-    color: #2e7d32; /* Green for headings */
+    color: #37474f; /* Dark slate for headings */
+    font-weight: 600;
 }
 
 .success {
-    color: #1b5e20; /* Deep green for success messages */
+    color: #388e3c; /* Green for success message */
+    font-size: 18px;
     font-weight: bold;
 }
 
 .warning {
     color: #d32f2f; /* Red for warnings */
+    font-size: 18px;
     font-weight: bold;
 }
 
 footer {
-    margin-top: 40px;
     text-align: center;
+    margin-top: 30px;
     font-size: 14px;
-    color: #757575; /* Muted grey for footer */
+    color: #616161; /* Grey for footer */
 }
 
 a {
-    color: #388e3c; /* Green links */
+    color: #0288d1; /* Blue links */
     text-decoration: none;
-    font-weight: bold;
 }
 
 a:hover {
@@ -81,7 +85,7 @@ st.markdown("<p>Analyze your health statistics to check your diabetes risk level
 
 st.markdown("<div class='container'><h3>Input Your Health Details</h3></div>", unsafe_allow_html=True)
 
-# Function to Collect User Data
+# Function to collect user input remains unchanged
 def collect_user_data():
     col1, col2, col3 = st.columns(3)
 
@@ -113,7 +117,7 @@ user_input = collect_user_data()
 st.markdown("<div class='container'><h3>Your Input Data</h3></div>", unsafe_allow_html=True)
 st.write(user_input)
 
-# Model Preparation
+# Model Preparation and Training (unchanged)
 x = df.drop(['Outcome'], axis=1)
 y = df['Outcome']
 x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_state=0)
@@ -121,7 +125,7 @@ x_train, x_test, y_train, y_test = train_test_split(x, y, test_size=0.2, random_
 model = RandomForestClassifier(random_state=42)
 model.fit(x_train, y_train)
 
-# Prediction Button and Logic
+# Prediction Button
 if st.button('🔍 Analyze My Risk', key="predict-button"):
     with st.spinner('Processing your data... Please wait!'):
         time.sleep(1)
